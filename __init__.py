@@ -2,6 +2,8 @@ from tkinter import filedialog
 from tkinter import *
 import sys
 from pathlib import Path
+import webbrowser
+import os
 
 googleDriveDirectory  = ''
 
@@ -9,6 +11,12 @@ def getUserWindow():
     global googleDriveDirectory
     googleDriveDirectory = filedialog.askdirectory()
 
+def runCMD(cmd):
+    #os.system(f'{cmd}')
+    os.system('"X:\My Drive\Felix\Test\TESSST.gdoc"')
+
+def openURL(url):
+    webbrowser.open('http://example.com')
 
 def getAllPaths():
     global googleDriveDirectory
@@ -17,7 +25,7 @@ def getAllPaths():
         print('No src Directory provided')
         return ''
     paths = []
-    for path in Path(googleDriveDirectory).rglob('*'):
+    for path in Path(googleDriveDirectory).rglob('*.gdoc'):
         paths.append(path)
 
     for p in paths:
@@ -38,6 +46,10 @@ class mainWindow(object):
         self.b3=Button(master,text="Find all files and directories",
             command= getAllPaths)
         self.b3.pack()
+
+        self.b4=Button(master,text="TEST",
+            command= lambda: runCMD('\"example.com\"'))
+        self.b4.pack()
 
 if __name__ == "__main__":
     root=Tk()
